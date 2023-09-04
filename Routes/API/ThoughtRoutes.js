@@ -1,5 +1,5 @@
 const expresss = require('express');
-const { Thoughts } = require('./Models')
+const { Thoughts } = require('../../Models')
 // call -- /api/thoughts
 
 // 'GET' to get all thoughts

@@ -1,7 +1,7 @@
 const { Schema, Thoughts, User} = require('mongoose');
-const Thoughts = model('Thoughts', thoughts);
+const Thoughts = mongoose.model('Thoughts', thoughts);
 
-const thoughts = new Schema({
+const thoughts = new mongoose.Schema({
     thoughtText: {
         type: String,
         required: true,
