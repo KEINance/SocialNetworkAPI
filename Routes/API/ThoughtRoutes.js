@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
   }
 })
 
-// * `GET` to get a single thought by its `_id`
+// `GET` to get a single thought by its `_id`
 router.get('/id', (req, res) => {
   try {
     const thoughts = Thoughts.find(thoughts.id);
@@ -21,7 +21,7 @@ router.get('/id', (req, res) => {
     res.error('Thought could not be found :( ');
   }
 })
-// * `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
+// `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
 // // example data
 // {
 //   "thoughtText": "Here's a cool thought...",
@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
   .catch(err => res.status(400).json(err))
 })
 
-// * `PUT` to update a thought by its `_id`
+// `PUT` to update a thought by its `_id`
 router.put('/id', (req, res) => {
   Thoughts.update(req.body, {
     where: {
@@ -53,7 +53,7 @@ router.put('/id', (req, res) => {
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 })
-// * `DELETE` to remove a thought by its `_id`
+// `DELETE` to remove a thought by its `_id`
 router.delete('/:id', (req, res) => {
   Thoughts.destroy({
     where:{ 

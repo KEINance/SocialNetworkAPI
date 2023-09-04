@@ -30,10 +30,9 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   User.create(req.body)
   .then((User) => {
-    const userArr = req.body.userIds.map((user_id) => {
+    const userArr = req.body.userIds.map((UserId) => {
       return {
-        product_id: product.id,
-        tag_id,
+        userId: User.id,
       }
       return User.create(userArr);
   })
@@ -43,8 +42,13 @@ router.post('/', (req, res) => {
 });
 
 // * `PUT` to update a user by its `_id`
-router.put('/id', (req, res) => {
-
+router.put('/:id', (req, res) => {
+  User.update(req.body, {
+    where: {
+      id: req.params.id,
+    }})
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(400).json(err))
 })
 
 // * `DELETE` to remove user by its `_id`
@@ -62,7 +66,29 @@ router.delete('/:id', (req, res) => {
 
 
 // `/api/users/:userId/friends/:friendId`
-
-// * `POST` to add a new friend to a user's friend list
+// `POST` to add a new friend to a user's friend list
+router.post('/:friendId', (req, res) => {
+  User.create(req.friends.body)
+  .then((User) => {
+    const userArr = req.body.userIds.map((userId) => {
+      return {
+        userId: friend.id,
+      }
+      return User.create(userArr);
+  })
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(400).json(err))
+})
+});
 
 // * `DELETE` to remove a friend from a user's friend list
+router.delete('/:id', (req, res) => {
+  Product.destroy({
+    where: {
+      id: req.params.friends.id,
+    }})
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(400).json(err))
+});
+
+module.exports = router;
