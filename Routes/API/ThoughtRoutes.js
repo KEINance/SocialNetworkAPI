@@ -39,9 +39,11 @@ router.post('/', (req, res) => {
     });
     return Thoughts.create(thoughtsArr);
   }
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(400).json(err))
-})
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err);
+  })
+});
 
 // `PUT` to update a thought by its `_id`
 router.put('/id', (req, res) => {
