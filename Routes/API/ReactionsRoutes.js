@@ -1,4 +1,5 @@
-const expresss = require('express');
+const express = require('express');
+const router = express.Router();
 const { Reactions } = require('../../Models')
 
 // /api/thoughts/:thoughtId/reactions
@@ -19,3 +20,4 @@ router.delete('/reactionId', (req, res) => {
     .then(data => res.status(200).json(data))
     .catch(err => res.status(400).json(err))
 })
+module.exports = router;

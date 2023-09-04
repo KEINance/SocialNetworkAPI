@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(routes);
 
-db.addEventListener("open", () => {
+db.once("open", () => {
     app.listen(PORT, () => {
-        console.log(`Eureka! You are jammin' on PORT 3001!`)
+      console.log(`Eureka! You are jammin' on PORT 3001!`)
     })
-})
+  })
