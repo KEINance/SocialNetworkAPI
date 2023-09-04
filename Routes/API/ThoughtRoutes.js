@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 // `GET` to get a single thought by its `_id`
-router.get('/id', (req, res) => {
+router.get('/:id', (req, res) => {
   try {
     const thoughts = Thoughts.find(thoughts.id);
     res.JSON(thoughts);
@@ -35,18 +35,15 @@ router.post('/', (req, res) => {
         thoughtText: Thoughts.id,
         username,
         userid,
-      };
-    });
+      }
+    })
     return Thoughts.create(thoughtsArr);
   }
-  .catch((err) => {
-    console.log(err);
-    res.status(400).json(err);
-  })
-});
-
-// `PUT` to update a thought by its `_id`
-router.put('/id', (req, res) => {
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(400).json(err))
+}) 
+// PUT to update a thought by its _id
+router.put('/:id', (req, res) => {
   Thoughts.update(req.body, {
     where: {
       id: req.params.id,
@@ -65,4 +62,4 @@ router.delete('/:id', (req, res) => {
     .catch(err => res.status(400).json(err))
 });
 
-module.exports = router
+module.exports = router;
