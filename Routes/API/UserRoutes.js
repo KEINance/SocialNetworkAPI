@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Thought } = require('./models')
+const { User, Thought } = require('./Models')
 const router = express.Router();
 
 // call by /api/users

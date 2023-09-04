@@ -1,5 +1,5 @@
 const expresss = require('express');
-const { Reactions } = require('../models')
+const { Reactions } = require('./Models')
 
 // /api/thoughts/:thoughtId/reactions
 

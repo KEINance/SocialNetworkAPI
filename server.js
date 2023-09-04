@@ -12,6 +12,6 @@ app.use(routes);
 
 db.addEventListener("open", () => {
     app.listen(PORT, () => {
-        console.log(`Eureka! Youre jammin' on PORT 3001!`)
+        console.log(`Eureka! You are jammin' on PORT 3001!`)
     })
 })

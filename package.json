@@ -4,14 +4,14 @@
     "description": "add friends and thoughts",
     "main": "server.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "npm start"
+      "dev": "npx supervisor index.js",
+      "start": "node server.js"
     },
     "author": "keinance",
     "license": "ISC",
     "dependencies": {
         "express": "^4.18.2",
-        "mongodb": "5.7.0",
+        "mongodb": "",
         "mongoose": "7.4.3"
     }
   }
