@@ -29,18 +29,38 @@ router.get('/id', (req, res) => {
 //   "userId": "5edff358a0fcb779aa7b118b"
 // }
 router.post('/', (req, res) => {
-  try {
-    const createThought = Thoughts.create(req.body);
-    res.JSON(createThought) => {
-      thoughtText: req.body,
-      username: req.body,
-      userId: req.id
-    };
-  } catch (err) {
-    res.error('Thought could not be found :( ');
+  if (req.body.thoughtsIds.length) {
+    const thoughtsArr = req.body.ThoughtsIds.map((thoughts_id) => {
+      return {
+        thoughtText: Thoughts.id,
+        username,
+        userid,
+      };
+    });
+    return Thoughts.create(thoughtsArr);
   }
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(400).json(err))
 })
 
 // * `PUT` to update a thought by its `_id`
-
+router.put('/id', (req, res) => {
+  Thoughts.update(req.body, {
+    where: {
+      id: req.params.id,
+    }
+  })
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(400).json(err))
+})
 // * `DELETE` to remove a thought by its `_id`
+router.delete('/:id', (req, res) => {
+  Thoughts.destroy({
+    where:{ 
+      id: req.params.id,
+    }})
+    .then(data => res.status(200).json(data))
+    .catch(err => res.status(400).json(err))
+});
+
+module.exports = router
