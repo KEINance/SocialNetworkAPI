@@ -1,4 +1,4 @@
-const { Schema, Thought, User} = require('mongoose');
+const { Schema, Thoughts, User} = require('mongoose');
 
 
 const reactions = new Schema({

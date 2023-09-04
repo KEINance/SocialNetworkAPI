@@ -5,7 +5,7 @@ const connectionString = 'mongodb://127.0.0.1:27017/social-network';
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-});
+})
 .then(() => {
     console.log('Success! You have connected!');
 })

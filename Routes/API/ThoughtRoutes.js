@@ -1,28 +1,46 @@
-**`/api/thoughts`**
+const expresss = require('express');
+const { Thoughts } = require('../models')
+// call -- /api/thoughts
 
-* `GET` to get all thoughts
+// 'GET' to get all thoughts
+router.get('/', (req, res) => {
+  try {
+    const thoughts = Thoughts.find();
+    res.JSON(thoughts);
+  } catch (err) {
+    res.error('Thought could not be found :( ');
+  }
+})
 
-* `GET` to get a single thought by its `_id`
+// * `GET` to get a single thought by its `_id`
+router.get('/id', (req, res) => {
+  try {
+    const thoughts = Thoughts.find(thoughts.id);
+    res.JSON(thoughts);
+  } catch (err) {
+    res.error('Thought could not be found :( ');
+  }
+})
+// * `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
+// // example data
+// {
+//   "thoughtText": "Here's a cool thought...",
+//   "username": "lernantino",
+//   "userId": "5edff358a0fcb779aa7b118b"
+// }
+router.post('/', (req, res) => {
+  try {
+    const createThought = Thoughts.create(req.body);
+    res.JSON(createThought) => {
+      thoughtText: req.body,
+      username: req.body,
+      userId: req.id
+    };
+  } catch (err) {
+    res.error('Thought could not be found :( ');
+  }
+})
 
-* `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
+// * `PUT` to update a thought by its `_id`
 
-```json
-// example data
-{
-  "thoughtText": "Here's a cool thought...",
-  "username": "lernantino",
-  "userId": "5edff358a0fcb779aa7b118b"
-}
-```
-
-* `PUT` to update a thought by its `_id`
-
-* `DELETE` to remove a thought by its `_id`
-
----
-
-**`/api/thoughts/:thoughtId/reactions`**
-
-* `POST` to create a reaction stored in a single thought's `reactions` array field
-
-* `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
+// * `DELETE` to remove a thought by its `_id`

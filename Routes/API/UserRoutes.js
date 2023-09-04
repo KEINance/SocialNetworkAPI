@@ -1,3 +1,8 @@
+const express = require('express');
+const { User } = require('./models')
+const router = express.Router();
+
+// call by /api/users
 
 
 
@@ -7,32 +12,33 @@
 
 
 
-**`/api/users`**
 
-* `GET` all users
+// **`/api/users`**
 
-* `GET` a single user by its `_id` and populated thought and friend data
+// * `GET` all users
 
-* `POST` a new user:
+// * `GET` a single user by its `_id` and populated thought and friend data
 
-```json
-// example data
-{
-  "username": "lernantino",
-  "email": "lernantino@gmail.com"
-}
-```
+// * `POST` a new user:
 
-* `PUT` to update a user by its `_id`
+// ```json
+// // example data
+// {
+//   "username": "lernantino",
+//   "email": "lernantino@gmail.com"
+// }
+// ```
 
-* `DELETE` to remove user by its `_id`
+// * `PUT` to update a user by its `_id`
 
-**BONUS**: Remove a user's associated thoughts when deleted.
+// * `DELETE` to remove user by its `_id`
 
----
+// **BONUS**: Remove a user's associated thoughts when deleted.
 
-**`/api/users/:userId/friends/:friendId`**
+// ---
 
-* `POST` to add a new friend to a user's friend list
+// **`/api/users/:userId/friends/:friendId`**
 
-* `DELETE` to remove a friend from a user's friend list
+// * `POST` to add a new friend to a user's friend list
+
+// * `DELETE` to remove a friend from a user's friend list
