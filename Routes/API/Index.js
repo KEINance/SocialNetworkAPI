@@ -3,8 +3,10 @@ const userRoutes = require('./UserRoutes');
 const thoughtsRoutes = require('./ThoughtRoutes');
 const reactionsRoutes = require('./ReactionsRoutes');
 
-router.use('./User', userRoutes);
-router.use('./Thought', thoughtsRoutes);
-router.use('./Reactions', reactionsRoutes);
+//remove . before / and change case on letters 
+
+router.use('/user', userRoutes);
+router.use('/thought', thoughtsRoutes);
+router.use('/reactions', reactionsRoutes);
 
 module.exports = router;

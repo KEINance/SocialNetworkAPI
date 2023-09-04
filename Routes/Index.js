@@ -1,5 +1,9 @@
 const router = require('express').Router();
 const api = require('./API/Index');
 
-router.use('./', api);
+// nix . before / and add 'api' after
+
+
+
+router.use('/api', api);
 module.exports = router;
