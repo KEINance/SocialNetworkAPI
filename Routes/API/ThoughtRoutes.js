@@ -1,9 +1,10 @@
-const expresss = require('express');
+const express = require('express');
+const router = require('router');
 const { Thoughts } = require('../../Models')
 // call -- /api/thoughts
 
 // 'GET' to get all thoughts
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   try {
     const thoughts = Thoughts.find();
     res.JSON(thoughts);

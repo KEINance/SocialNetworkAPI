@@ -1,7 +1,6 @@
-const { Schema, Thoughts, User} = require('mongoose');
-const Thoughts = mongoose.model('Thoughts', thoughts);
+const { Schema, model} = require('mongoose');
 
-const thoughts = new mongoose.Schema({
+const thoughtsSchema = new Schema({
     thoughtText: {
         type: String,
         required: true,
@@ -16,16 +15,19 @@ const thoughts = new mongoose.Schema({
         type: String,
         required: true
     },
-    reactions: [reaction],
-
+    reactions: [{
+        reactionBody: String,
+        username: String,
+        createdAt: Date
+    }],
 });
 
-Thoughts.virtual('reactionCount').get(function() {
-    return this.reaction.length;
+thoughtsSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
 });
 
 
-const reactions = new Schema({
+const reactionsSchema = new Schema({
     reactionBody: {
         type: String,
         required: true,
@@ -41,8 +43,11 @@ const reactions = new Schema({
         get: createdAtVal => moment(createdAtVal)
     },
 });
-reactions.virtual('reactionCount').get(function() {
-    return this.reaction.length;
+
+reactionsSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
 });
 
-module.exports = Thoughts;
+const Thoughts = model('Thoughts', thoughtsSchema);
+const Reactions = model('Reactions', reactionsSchema);
+module.exports ={ Thoughts, Reactions};
