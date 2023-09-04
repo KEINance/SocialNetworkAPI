@@ -1,0 +1,18 @@
+{
+    "name": "socialnetworkapi",
+    "version": "1.0.0",
+    "description": "add friends and thoughts",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "npm start"
+    },
+    "author": "keinance",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2",
+        "mongodb": "5.7.0",
+        "mongoose": "7.4.3"
+    }
+  }
+  

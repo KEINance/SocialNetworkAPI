@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   .catch(err => res.status(400).json(err))
 })
 // `GET` a single user by its `_id` and populated thought and friend data
-router.get('/:id', (req, res) => {
+router.get('/:userid', (req, res) => {
   User.findAll({
     where: {
       id: req.params.id,
@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
 });
 
 // * `PUT` to update a user by its `_id`
-router.put('/:id', (req, res) => {
+router.put('/:userid', (req, res) => {
   User.update(req.body, {
     where: {
       id: req.params.id,
@@ -52,7 +52,7 @@ router.put('/:id', (req, res) => {
 })
 
 // * `DELETE` to remove user by its `_id`
-router.delete('/:id', (req, res) => {
+router.delete('/:userid', (req, res) => {
   // delete on tag by its `id` value
   User.destroy({
     where:{ 
@@ -67,7 +67,7 @@ router.delete('/:id', (req, res) => {
 
 // `/api/users/:userId/friends/:friendId`
 // `POST` to add a new friend to a user's friend list
-router.post('/:friendId', (req, res) => {
+router.post('/:userId/friends/:friendId', (req, res) => {
   User.create(req.friends.body)
   .then((User) => {
     const userArr = req.body.userIds.map((userId) => {
@@ -82,7 +82,7 @@ router.post('/:friendId', (req, res) => {
 });
 
 // * `DELETE` to remove a friend from a user's friend list
-router.delete('/:id', (req, res) => {
+router.delete('/:userId/friends/:friendId', (req, res) => {
   Product.destroy({
     where: {
       id: req.params.friends.id,

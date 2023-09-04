@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 })
 
 // `GET` to get a single thought by its `_id`
-router.get('/:id', (req, res) => {
+router.get('/:userid', (req, res) => {
   try {
     const thoughts = Thoughts.find(thoughts.id);
     res.JSON(thoughts);
@@ -44,7 +44,7 @@ router.post('/', (req, res) => {
 }
 })
 // PUT to update a thought by its _id
-router.put('/:id', (req, res) => {
+router.put('/:userid', (req, res) => {
   Thoughts.update(req.body, {
     where: {
       id: req.params.id,
@@ -54,7 +54,7 @@ router.put('/:id', (req, res) => {
   .catch(err => res.status(400).json(err))
 })
 // `DELETE` to remove a thought by its `_id`
-router.delete('/:id', (req, res) => {
+router.delete('/:userid', (req, res) => {
   Thoughts.destroy({
     where:{ 
       id: req.params.id,
