@@ -1,27 +1,28 @@
 const express = require('express');
-const { User, Thought } = require('../../Models')
+const { User } = require('../../Models/User');
+const { Thoughts } = require('../../Models/Thought')
 const router = express.Router();
 
 // call by /api/users
 
 // `GET` all users
 router.get('/', (req, res) => {
-  User.findAll({ model: User.id})
+  User.find()
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 })
 // `GET` a single user by its `_id` and populated thought and friend data
-router.get('/:userid', (req, res) => {
+router.get('/:userId', (req, res) => {
   User.findOne({
     where: {
-      id: req.params.id,
+      _id: req.params.userId,
     }
   })
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 });
 
-// * `POST` a new user:
+// `POST` a new user:
 // example data
 // {
 //   "username": "lernantino",
