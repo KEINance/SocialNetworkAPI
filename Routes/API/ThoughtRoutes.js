@@ -40,16 +40,11 @@ router.post('/', async (req, res) => {
       
       await Thoughts.create(req.body); // Use bulkCreate for multiple inserts.
       res.status(201).json({ message: 'Thoughts created successfully' });
-      res.status(400).json({ error: 'No thought IDs provided' });
     } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'An error occurred' });
   }
 });
-
-
-
-
 
 
 // PUT to update a thought by its _id
