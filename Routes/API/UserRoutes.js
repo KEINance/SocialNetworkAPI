@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../../Models/User');
+const User = require('../../Models/User');
 const { Thoughts } = require('../../Models/Thought')
 const router = express.Router();
 
@@ -78,7 +78,7 @@ router.post('/:userId/friends/:friendId', (req, res) => {
 
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
-  Product.destroy({
+  User.destroy({
     where: {
       id: req.params.friends.id,
     }})
