@@ -30,15 +30,9 @@ router.get('/:userid', (req, res) => {
 router.post('/', (req, res) => {
   User.create(req.body)
   .then((User) => {
-    const userArr = req.body.userIds.map((UserId) => {
-      return {
-        userId: User.id,
-      }
-      return User.create(userArr);
+    res.json(User)
   })
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(400).json(err))
-})
+    .catch(err => res.status(400).json(err))
 });
 
 // * `PUT` to update a user by its `_id`
