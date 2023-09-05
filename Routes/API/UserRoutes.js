@@ -6,13 +6,13 @@ const router = express.Router();
 
 // `GET` all users
 router.get('/', (req, res) => {
-  User.findOne({ model: User.id})
+  User.findAll({ model: User.id})
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 })
 // `GET` a single user by its `_id` and populated thought and friend data
 router.get('/:userid', (req, res) => {
-  User.findAll({
+  User.findOne({
     where: {
       id: req.params.id,
     }
@@ -37,21 +37,21 @@ router.post('/', (req, res) => {
 
 // * `PUT` to update a user by its `_id`
 router.put('/:userid', (req, res) => {
-  User.update(req.body, {
-    where: {
-      id: req.params.id,
-    }})
-    .then(data => res.status(200).json(data))
+  User.create(req.body)
+  .then((User) => {
+    res.json(User)
+  })
     .catch(err => res.status(400).json(err))
 })
 
 // * `DELETE` to remove user by its `_id`
 router.delete('/:userid', (req, res) => {
   // delete on tag by its `id` value
-  User.destroy({
-    where:{ 
-      id: req.params.id,
-    }})
+  User.destroy(req.body)
+  .then((User) => {
+    res.json(User)
+  })
+
     .then(data => res.status(200).json(data))
     .catch(err => res.status(400).json(err))
 });
