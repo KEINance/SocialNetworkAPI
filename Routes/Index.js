@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const api = require('./API/Index');
+const api = require('./API');
 
 // nix . before / and add 'api' after
 

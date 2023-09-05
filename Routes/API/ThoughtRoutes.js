@@ -1,25 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const { Thoughts } = require('../../Models')
-// call -- /api/thoughts
+const { Thoughts } = require('../../Models/Thought')
+// call -- /api/thought
 
-// 'GET' to get all thoughts
-router.get('/:id', (req, res) => {
+// 'GET' to get all thought
+router.get('/', (req, res) => {
   try {
     const thoughts = Thoughts.find();
-    res.JSON(thoughts);
+    res.json(thoughts);
   } catch (err) {
-    res.error('Thought could not be found :( ');
+    console.error('Thought could not be found :( ');
   }
 })
 
 // `GET` to get a single thought by its `_id`
-router.get('/:userid', (req, res) => {
+router.get('/:thoughtId', (req, res) => {
   try {
-    const thoughts = Thoughts.find(thoughts.id);
-    res.JSON(thoughts);
+    const thoughts = Thoughts.findOne({ _id: req.params.thoughtId});
+    res.json(thoughts);
   } catch (err) {
-    res.error('Thought could not be found :( ');
+    console.error('Thought could not be found :( ');
   }
 })
 // `POST` to create a new thought (don't forget to push the created thought's `_id` to the associated user's `thoughts` array field)
@@ -30,36 +30,27 @@ router.get('/:userid', (req, res) => {
 //   "userId": "5edff358a0fcb779aa7b118b"
 // }
 router.post('/', (req, res) => {
-  try {if (req.body.thoughtsIds.length) {
-    const thoughtsArr = req.body.ThoughtsIds.map((thoughts_id) => {
-      return {
-        thoughtText: Thoughts.id,
-        username,
-        userid,
-      }
-    })
-    return Thoughts.create(thoughtsArr);
-  }
-}  catch (err) {
-  res.error('Thought could not be found :( ');
-}
+  //try {
+    console.log('hello')
+  Thoughts.create(req.body)
+  .then(data => res.status(200).json(data))
+  .catch(err => res.status(err).json)
+  //}
+  //catch (err) {
+  //console.error('Thought could not be found :( ');
+//}
 })
 // PUT to update a thought by its _id
-router.put('/:userid', (req, res) => {
-  Thoughts.update(req.body, {
-    where: {
-      id: req.params.id,
-    }
-  })
+router.put('/:thoughtId', (req, res) => {
+  Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, {$set: req.body}, {new: true})
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 })
 // `DELETE` to remove a thought by its `_id`
-router.delete('/:userid', (req, res) => {
-  Thoughts.destroy({
-    where:{ 
-      id: req.params.id,
-    }})
+router.delete('/:thoughtId', (req, res) => {
+  Thoughts.findOneAndDelete({
+      _id: req.params.thoughtId,
+    })
     .then(data => res.status(200).json(data))
     .catch(err => res.status(400).json(err))
 });
@@ -80,14 +71,14 @@ router.post('/:thoughtId/reactions', (req, res) => {
     return Thoughts.create(reactionsArr);
     })}
   } catch (err) {
-  res.error('Thought could not be found :( ');
+  console.error('Thought could not be found :( ');
 }
 })
 
 
 // * `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
 router.delete('/reactionId', (req, res) => {
-  Reactions.destroy({
+  Reactions.findOneAndDelete({
       where: {
           id: req.params.id
       }

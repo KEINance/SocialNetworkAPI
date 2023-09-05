@@ -14,10 +14,8 @@ router.get('/', (req, res) => {
 // `GET` a single user by its `_id` and populated thought and friend data
 router.get('/:userId', (req, res) => {
   User.findOne({
-    where: {
       _id: req.params.userId,
-    }
-  })
+    })
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 });
@@ -37,8 +35,8 @@ router.post('/', (req, res) => {
 });
 
 // * `PUT` to update a user by its `_id`
-router.put('/:userid', (req, res) => {
-  User.create(req.body)
+router.put('/:userId', (req, res) => {
+  User.findOneAndUpdate({ _id: req.params.userId }, {$set: req.body}, {new: true})
   .then((User) => {
     res.json(User)
   })
@@ -46,9 +44,9 @@ router.put('/:userid', (req, res) => {
 })
 
 // * `DELETE` to remove user by its `_id`
-router.delete('/:userid', (req, res) => {
+router.delete('/:userId', (req, res) => {
   // delete on tag by its `id` value
-  User.destroy(req.body)
+  User.findOneAndDelete(req.body)
   .then((User) => {
     res.json(User)
   })
@@ -78,7 +76,7 @@ router.post('/:userId/friends/:friendId', (req, res) => {
 
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
-  User.destroy({
+  User.findOneAndDelete({
     where: {
       id: req.params.friends.id,
     }})
