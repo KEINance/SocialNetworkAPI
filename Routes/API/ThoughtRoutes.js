@@ -29,17 +29,29 @@ router.get('/:thoughtId', (req, res) => {
 //   "username": "lernantino",
 //   "userId": "5edff358a0fcb779aa7b118b"
 // }
-router.post('/', (req, res) => {
-  //try {
-    console.log('hello')
-  Thoughts.create(req.body)
-  .then(data => res.status(200).json(data))
-  .catch(err => res.status(err).json)
-  //}
-  //catch (err) {
-  //console.error('Thought could not be found :( ');
-//}
-})
+router.post('/', async (req, res) => {
+  try {
+      // const thoughtsArr = req.body.thoughtsIds.map((thoughts_id) => {
+      //   return {
+      //     thoughtText: Thoughts.id,
+      //     username,
+      //     userid,
+      //   };
+      
+      await Thoughts.create(req.body); // Use bulkCreate for multiple inserts.
+      res.status(201).json({ message: 'Thoughts created successfully' });
+      res.status(400).json({ error: 'No thought IDs provided' });
+    } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+
+
+
+
+
 // PUT to update a thought by its _id
 router.put('/:thoughtId', (req, res) => {
   Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, {$set: req.body}, {new: true})
