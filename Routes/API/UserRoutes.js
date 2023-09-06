@@ -64,7 +64,7 @@ router.post('/:userId/friends/:friendId', async (req, res) => {
   //So you will find the user then push the friend id to the friend array
   //    { $push: { <field1>: <value1>, ... } }
   try {
-    await Thoughts.findOneAndUpdate( { _id: req.params.userId }, { $addToSet: { friends: req.body } }, { new: true });
+    await Thoughts.findOneAndUpdate( { _id: req.params.userId }, { $addToSet: { friends: req.body } }, { runValidators: true, new: true });
     res.status(201).json({ message: 'Friends created successfully' });
   } catch (err) {
   console.error(err);
