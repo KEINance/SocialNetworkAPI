@@ -4,15 +4,15 @@
     "description": "add friends and thoughts",
     "main": "server.js",
     "scripts": {
-      "dev": "npx supervisor index.js",
-      "start": "node server.js"
+        "dev": "npx supervisor index.js",
+        "start": "node server.js"
     },
     "author": "keinance",
     "license": "ISC",
     "dependencies": {
+        "dateformat": "^5.0.3",
         "express": "^4.18.2",
         "mongodb": "",
         "mongoose": "7.4.3"
     }
-  }
-  
+}

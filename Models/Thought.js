@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+function dateFormat(date) {
+    return new Date(date).toLocaleDateString(); 
+}
 
 const reactionsSchema = new Schema({
     reactionBody: {
@@ -13,7 +16,7 @@ const reactionsSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: createdAtVal => moment(createdAtVal)
+        get: createdAtVal => dateFormat(createdAtVal).format()
     },
 },
 {
@@ -33,7 +36,7 @@ const thoughtsSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: createdAtVal => moment(createdAtVal)
+        get: createdAtVal => dateFormat(createdAtVal).format()
     },
     username: {
         type: String,

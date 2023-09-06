@@ -5,10 +5,16 @@ const { Thoughts, Reactions } = require('../../Models/Thought')
 
 // 'GET' to get all thought
 router.get('/', async (req, res) => {
-    Thoughts.find()
-    .then(data => res.status(200).json(data))
-    .catch(err => res.status(400).json(err))
-})
+  try {
+    // Add query criteria here if needed
+    const data = await Thoughts.find();
+
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
 
 // `GET` to get a single thought by its `_id`
 router.get('/:thoughtId', async (req, res) => {
