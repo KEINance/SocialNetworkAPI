@@ -75,7 +75,7 @@ router.post('/:userId/friends/:friendId', async (req, res) => {
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
   try {  
-    // console.log('helloreactiondelete')
+    console.log('hellofrienddelete')
     User.findOneAndDelete( { _id: req.params.userId}, {$pull: { friends: req.params.friendId } }, {new: true})
     .then(data => res.status(200).json(data))
 } catch (err) {
