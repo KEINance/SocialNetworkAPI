@@ -60,21 +60,23 @@ router.delete('/:userId', (req, res) => {
 
 // `/api/users/:userId/friends/:friendId`
 // `POST` to add a new friend to a user's friend list
-router.post('/:userId/friends/:friendId', (req, res) => {
+router.post('/:userId/friends/:friendId', async (req, res) => {
   //So you will find the user then push the friend id to the friend array
- //    { $push: { <field1>: <value1>, ... } }
-try {  User.findByIdAndUpdate( req.params.userId, {$push: req.params.friendId}, {new: true})
-  .then(data => res.status(200).json(data))
-} catch (err) {
-  res.status(500).json({ error: 'An error occurred with your reaction' });
+  //    { $push: { <field1>: <value1>, ... } }
+  try {
+    await Thoughts.findOneAndUpdate( { _id: req.params.userId }, { $addToSet: { reactions: req.body } }, { new: true });
+    res.status(201).json({ message: 'Friends created successfully' });
+  } catch (err) {
+  console.error(err);
+  res.status(500).json({ error: 'An error occurred with adding your friend' });
 }
 })
-
 
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
   try {  
-    User.findByIdAndUpdate( req.params.userId, {$pull: req.params.friendId}, {new: true})
+    // console.log('helloreactiondelete')
+    User.findOneAndDelete( { _id: req.params.userId}, {$pull: { friends: req.params.friendId } }, {new: true})
     .then(data => res.status(200).json(data))
 } catch (err) {
   res.status(500).json({ error: 'An error occurred with your reaction' });

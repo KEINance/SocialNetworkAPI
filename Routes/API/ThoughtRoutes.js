@@ -64,7 +64,7 @@ router.delete('/:thoughtId', async (req, res) => {
 // * `POST` to create a reaction stored in a single thought's `reactions` array field
 router.post('/:thoughtId/reactions', async (req, res) => {
   try {
-    await Reactions.create(req.body); 
+    await Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $addToSet: { reactions: req.body } }, { runValidators: true, new: true });
     res.status(201).json({ message: 'Reactions created successfully' });
   } catch (err) {
   console.error(err);
@@ -74,9 +74,8 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 
 // * `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
 router.delete('/reactionId', async (req, res) => {
-  await Reactions.findOneAndDelete({
-          _id: req.params.id
-  })
+  // console.log('hellothoughtdelete')
+  await Reactions.findOneAndDelete({ _id: req.params.thoughtId }, { $pull: { reactions: req.body } }, {new: true })
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
 })
