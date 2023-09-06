@@ -63,8 +63,7 @@ router.delete('/:userId', (req, res) => {
 router.post('/:userId/friends/:friendId', (req, res) => {
   //So you will find the user then push the friend id to the friend array
  //    { $push: { <field1>: <value1>, ... } }
-try {  User.findByIdAndUpdate( req.params.userId, {$push: req.params.friendId}, {new: true});
-  res.json(User)
+try {  User.findByIdAndUpdate( req.params.userId, {$push: req.params.friendId}, {new: true})
   .then(data => res.status(200).json(data))
 } catch (err) {
   res.status(500).json({ error: 'An error occurred with your reaction' });
@@ -75,8 +74,7 @@ try {  User.findByIdAndUpdate( req.params.userId, {$push: req.params.friendId}, 
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
   try {  
-    User.findByIdAndUpdate( req.params.userId, {$pull: req.params.friendId}, {new: true});
-    res.json(User)
+    User.findByIdAndUpdate( req.params.userId, {$pull: req.params.friendId}, {new: true})
     .then(data => res.status(200).json(data))
 } catch (err) {
   res.status(500).json({ error: 'An error occurred with your reaction' });
