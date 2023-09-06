@@ -61,27 +61,26 @@ router.delete('/:userId', (req, res) => {
 // `/api/users/:userId/friends/:friendId`
 // `POST` to add a new friend to a user's friend list
 router.post('/:userId/friends/:friendId', (req, res) => {
-  User.create(req.friends.body)
-  .then((User) => {
-    const userArr = req.body.userIds.map((userId) => {
-      return {
-        userId: friend.id,
-      }
-      return User.create(userArr);
-  })
+  //So you will find the user then push the friend id to the friend array
+ //    { $push: { <field1>: <value1>, ... } }
+try {  User.findByIdAndUpdate( req.params.userId, {$push: req.params.friendId}, {new: true});
+  res.json(User)
   .then(data => res.status(200).json(data))
-  .catch(err => res.status(400).json(err))
+} catch (err) {
+  res.status(500).json({ error: 'An error occurred with your reaction' });
+}
 })
-});
+
 
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
-  User.findOneAndDelete({
-    where: {
-      id: req.params.friends.id,
-    }})
+  try {  
+    User.findByIdAndUpdate( req.params.userId, {$pull: req.params.friendId}, {new: true});
+    res.json(User)
     .then(data => res.status(200).json(data))
-    .catch(err => res.status(400).json(err))
+} catch (err) {
+  res.status(500).json({ error: 'An error occurred with your reaction' });
+}
 });
 
 module.exports = router;
