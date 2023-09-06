@@ -75,8 +75,8 @@ router.post('/:userId/friends/:friendId', async (req, res) => {
 // * `DELETE` to remove a friend from a user's friend list
 router.delete('/:userId/friends/:friendId', (req, res) => {
   try {  
-    console.log('hellofrienddelete')
-    User.findOneAndDelete( { _id: req.params.userId}, {$pull: { friends: req.params.friendId } }, {new: true})
+    // console.log('hellofrienddelete')
+    User.findOneAndUpdate( { _id: req.params.userId}, {$pull: { friends: req.params.friendId } }, {new: true})
     .then(data => res.status(200).json(data))
 } catch (err) {
   res.status(500).json({ error: 'An error occurred with your reaction' });
