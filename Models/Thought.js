@@ -16,7 +16,7 @@ const reactionsSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: createdAtVal => dateFormat(createdAtVal).format()
+        get: (timestamp) => dateFormat(timestamp),
     },
 },
 {
@@ -36,7 +36,7 @@ const thoughtsSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: createdAtVal => dateFormat(createdAtVal).format()
+        get: (timestamp) => dateFormat(timestamp),
     },
     username: {
         type: String,

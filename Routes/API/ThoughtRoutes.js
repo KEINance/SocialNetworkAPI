@@ -72,13 +72,10 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 }
 })
 
-
 // * `DELETE` to pull and remove a reaction by the reaction's `reactionId` value
 router.delete('/reactionId', async (req, res) => {
   await Reactions.findOneAndDelete({
-      where: {
-          id: req.params.id
-      }
+          _id: req.params.id
   })
   .then(data => res.status(200).json(data))
   .catch(err => res.status(400).json(err))
